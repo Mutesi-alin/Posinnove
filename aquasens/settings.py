@@ -48,11 +48,6 @@ INSTALLED_APPS = [
     'api',
     'rest_framework', 
     'rest_framework.authtoken',
-    "datamonitoring",
-    "drainagesystem",
-    "map",
-    "sensor",
-    "notification",
     "corsheaders",
     "django_extensions",
     

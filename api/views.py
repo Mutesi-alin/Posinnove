@@ -10,15 +10,6 @@ from .serializers import UserSerializer, RoleSerializer
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
-from datamonitoring.models import MonitoringData
-from .serializers import MonitoringDataSerializer
-from drainagesystem.models import DrainageSystem
-from .serializers import DrainageSystemSerializer
-from .serializers import DeviceSerializer
-from sensor.models import Sensor
-from .serializers import SensorSerializer
-from notification.models import Notification
-from .serializers import NotificationSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -126,66 +117,3 @@ class RoleBasedView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class MonitoringDataViewSet(viewsets.ModelViewSet):
-    queryset = MonitoringData.objects.all()
-    serializer_class = MonitoringDataSerializer
-
-
-class DrainageSystemListCreateView(generics.ListCreateAPIView):
-    queryset = DrainageSystem.objects.all()
-    serializer_class = DrainageSystemSerializer
-
-    def get(self, request):
-        drainagesystems = self.get_queryset()
-        serializer = self.get_serializer(drainagesystems, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class SensorListCreateView(generics.ListCreateAPIView):
-    queryset = Sensor.objects.all()
-    serializer_class = SensorSerializer
-
-    def post(self, request):
-        serializer = SensorSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request):
-        return Response({})
-
-
-class SensorDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Sensor.objects.all()
-    serializer_class = SensorSerializer
-
-    def get(self, request, id):
-        sensor = self.get_object()
-        serializer = SensorSerializer(sensor)
-        return Response(serializer.data)
-
-    def put(self, request, id):
-        sensor = self.get_object()
-        serializer = SensorSerializer(sensor, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, id):
-        sensor = self.get_object()
-        sensor.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class NotificationViewSet(viewsets.ModelViewSet):
-    queryset = Notification.objects.all()
-    serializer_class = NotificationSerializer
