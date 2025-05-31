@@ -36,7 +36,7 @@ python manage.py runserver
 
 - `POST /api/users/register/` - Register user
 - `POST /api/users/login/` - Login user  
-POST /api/auth/register/
+POST /api/users/register/
  {
        
         "first_name": "Queen",
@@ -47,12 +47,13 @@ POST /api/auth/register/
         "role": "Estate_Associate"
     }
 
-POST /api/auth/login/
-{
-    "email": "john@example.com",
-    "password": "securePassword123"
-}
+- `POST /api/users/login/` - Login user  
 
+ {
+       
+        "email": "queen345@gmail.com",
+        "password": "queen345"
+    }
 ## Tech Stack
 
 Django, Django REST Framework, JWT, Bcrypt
