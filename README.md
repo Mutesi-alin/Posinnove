@@ -13,7 +13,7 @@ Django REST API backend with JWT authentication for the real estate dashboard.
 
 1. **Clone and setup**
 ```bash
-git clone https://github.com/your-username/real-estate-api.git
+git clone  https://github.com/Mutesi-alin/Posinnove.git
 cd real-estate-api
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
